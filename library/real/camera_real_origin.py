@@ -14,7 +14,6 @@ from camera import Camera
 # General
 import cv2 as cv
 import numpy as np
-from nptyping import NDArray
 
 # ROS2
 import rclpy as ros2
@@ -81,14 +80,14 @@ class CameraReal(Camera):
         self.__depth_image = self.__depth_image_new
         self.__color_image = self.__color_image_new
 
-    def get_color_image_no_copy(self) -> NDArray[(480, 640, 3), np.uint8]:
+    def get_color_image_no_copy(self) -> np.ndarray[(480, 640, 3), np.uint8]:
         return self.__color_image
 
-    def get_depth_image(self) -> NDArray[(480, 640), np.float32]:
+    def get_depth_image(self) -> np.ndarray[(480, 640), np.float32]:
         return self.__depth_image
 
-    def get_color_image_async(self) -> NDArray[(480, 640, 3), np.uint8]:
+    def get_color_image_async(self) -> np.ndarray[(480, 640, 3), np.uint8]:
         return self.__color_image_new
 
-    def get_depth_image_async(self) -> NDArray[(480, 640), np.float32]:
+    def get_depth_image_async(self) -> np.ndarray[(480, 640), np.float32]:
         return self.__depth_image_new

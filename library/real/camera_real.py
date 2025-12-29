@@ -11,14 +11,13 @@ from camera import Camera
 # General
 import cv2 as cv
 import numpy as np
-from nptyping import NDArray
 
 # ROS2
 import rclpy as ros2
 from rclpy.qos import (
-    QoSDurabilityPolicy,
-    QoSHistoryPolicy,
-    QoSReliabilityPolicy,
+    DurabilityPolicy,
+    HistoryPolicy,
+    ReliabilityPolicy,
     QoSProfile,
 )
 from sensor_msgs.msg import Image
@@ -37,11 +36,11 @@ class CameraReal(Camera):
         self.node = ros2.create_node("image_sub")
 
         qos_profile = QoSProfile(depth=1)
-        qos_profile.history = QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_LAST
+        qos_profile.history = HistoryPolicy.KEEP_LAST
         qos_profile.reliability = (
-            QoSReliabilityPolicy.RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT
+            ReliabilityPolicy.BEST_EFFORT
         )
-        qos_profile.durability = QoSDurabilityPolicy.RMW_QOS_POLICY_DURABILITY_VOLATILE
+        qos_profile.durability = DurabilityPolicy.VOLATILE
 
         # subscribe to the color image topic, which will call
         # __color_callback every time the camera publishes data
@@ -80,15 +79,15 @@ class CameraReal(Camera):
         # self.__depth_image = self.__depth_image_new
         self.__color_image = self.__color_image_new
 
-    def get_color_image_no_copy(self) -> NDArray[(480, 640, 3), np.uint8]:
+    def get_color_image_no_copy(self) -> np.ndarray[(480, 640, 3), np.uint8]:
         return self.__color_image
 
-    def get_depth_image(self) -> NDArray[(480, 640), np.float32]:
+    def get_depth_image(self) -> np.ndarray[(480, 640), np.float32]:
         return self.__depth_image
 
-    def get_color_image_async(self) -> NDArray[(480, 640, 3), np.uint8]:
+    def get_color_image_async(self) -> np.ndarray[(480, 640, 3), np.uint8]:
         return self.__color_image_new
 
-    def get_depth_image_async(self) -> NDArray[(480, 640), np.float32]:
+    def get_depth_image_async(self) -> np.ndarray[(480, 640), np.float32]:
         return self.__depth_image_new
 

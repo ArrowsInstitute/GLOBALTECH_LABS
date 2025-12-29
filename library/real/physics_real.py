@@ -14,14 +14,13 @@ from physics import Physics
 # General
 from collections import deque
 import numpy as np
-from nptyping import NDArray
 
 # ROS2
 import rclpy as ros2
 from rclpy.qos import (
-    QoSDurabilityPolicy,
-    QoSHistoryPolicy,
-    QoSReliabilityPolicy,
+    DurabilityPolicy,
+    HistoryPolicy,
+    ReliabilityPolicy,
     QoSProfile,
 )
 from sensor_msgs.msg import Imu
@@ -38,9 +37,9 @@ class PhysicsReal(Physics):
         self.node = ros2.create_node("imu_sub")
 
         qos_profile = QoSProfile(depth=1)
-        qos_profile.history = QoSHistoryPolicy.KEEP_LAST
-        qos_profile.reliability = QoSReliabilityPolicy.BEST_EFFORT
-        qos_profile.durability = QoSDurabilityPolicy.VOLATILE
+        qos_profile.history = HistoryPolicy.KEEP_LAST
+        qos_profile.reliability = ReliabilityPolicy.BEST_EFFORT
+        qos_profile.durability = DurabilityPolicy.VOLATILE
 
         # subscribe to the accel topic, which will call
         # __accel_callback every time the camera publishes data
@@ -79,8 +78,8 @@ class PhysicsReal(Physics):
             self.__angular_velocity = np.mean(self.__angular_velocity_buffer, axis=0)
             self.__angular_velocity_buffer.clear()
 
-    def get_linear_acceleration(self) -> NDArray[3, np.float32]:
+    def get_linear_acceleration(self) -> np.ndarray[3, np.float32]:
         return np.array(self.__acceleration)
 
-    def get_angular_velocity(self) -> NDArray[3, np.float32]:
+    def get_angular_velocity(self) -> np.ndarray[3, np.float32]:
         return np.array(self.__angular_velocity)

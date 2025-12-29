@@ -13,7 +13,6 @@ from lidar import Lidar
 
 # General
 import numpy as np
-from nptyping import NDArray
 
 # ROS2
 import rclpy as ros2
@@ -48,8 +47,8 @@ class LidarReal(Lidar):
     def __update(self):
         self.__samples = self.__samples_new
 
-    def get_samples(self) -> NDArray[720, np.float32]:
+    def get_samples(self) -> np.ndarray[720, np.float32]:
         return self.__samples
 
-    def get_samples_async(self) -> NDArray[720, np.float32]:
+    def get_samples_async(self) -> np.ndarray[720, np.float32]:
         return self.__samples_new
