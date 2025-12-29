@@ -13,7 +13,6 @@ import abc
 import numpy as np
 import math
 from typing import Any, List, Tuple
-from nptyping import NDArray
 
 import racecar_utils as rc_utils
 
@@ -53,7 +52,7 @@ class Display(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def show_color_image(self, image: NDArray) -> None:
+    def show_color_image(self, image: np.ndarray) -> None:
         """
         Displays a color image in a window.
 
@@ -71,7 +70,7 @@ class Display(abc.ABC):
 
     def show_depth_image(
         self,
-        image: NDArray[(Any, Any), np.float32],
+        image: np.ndarray[(Any, Any), np.float32],
         max_depth: int = 1000,
         points: List[Tuple[int, int]] = [],
     ) -> None:
@@ -126,7 +125,7 @@ class Display(abc.ABC):
 
     def show_lidar(
         self,
-        samples: NDArray[Any, np.float32],
+        samples: np.ndarray[Any, np.float32],
         radius: int = 128,
         max_range: int = 1000,
         highlighted_samples: List[Tuple[float, float]] = [],
@@ -205,7 +204,7 @@ class Display(abc.ABC):
         self.show_color_image(image)
 
     @abc.abstractmethod
-    def set_matrix(self, matrix: NDArray[(8, 24), np.uint8]) -> None:
+    def set_matrix(self, matrix: np.ndarray[(8, 24), np.uint8]) -> None:
         """
         Sets the dot matrix display module to the pattern in the argument (2D matrix).
 
@@ -228,7 +227,7 @@ class Display(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def get_matrix(self) -> NDArray[(8, 24), np.uint8]:
+    def get_matrix(self) -> np.ndarray[(8, 24), np.uint8]:
         """
         Returns the current configuration of the dot matrix display module.
 
@@ -247,7 +246,7 @@ class Display(abc.ABC):
         """
         pass
 
-    def new_matrix(self) -> NDArray[(8, 24), np.uint8]:
+    def new_matrix(self) -> np.ndarray[(8, 24), np.uint8]:
         """
         Returns a new matrix of all zeroes for the dot matrix display module.
 

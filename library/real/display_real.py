@@ -11,7 +11,6 @@ File Description: Contains the Display module of the racecar_core library
 import cv2 as cv
 import numpy as np
 import os
-from nptyping import NDArray
 
 from display import Display
 
@@ -58,12 +57,12 @@ class DisplayReal(Display):
         if not self._Display__isHeadless and self.__display_found:
             cv.namedWindow(self.__WINDOW_NAME)
 
-    def show_color_image(self, image: NDArray) -> None:
+    def show_color_image(self, image: np.ndarray) -> None:
         if not self._Display__isHeadless and self.__display_found:
             cv.imshow(self.__WINDOW_NAME, image)
             cv.waitKey(1)
 
-    def set_matrix(self, matrix: NDArray[(8, 24), np.uint8]) -> None:
+    def set_matrix(self, matrix: np.ndarray[(8, 24), np.uint8]) -> None:
     #     self.__matrix = matrix
     #     with canvas(self.device) as draw:
     #         for x in range(0, self.device.width):
@@ -72,7 +71,7 @@ class DisplayReal(Display):
     #                     draw.point((x, y), fill="white")
         print("set_matrix function is disabled.")
 
-    def get_matrix(self) -> NDArray[(8, 24), np.uint8]:
+    def get_matrix(self) -> np.ndarray[(8, 24), np.uint8]:
         return self.__matrix
 
     def set_matrix_intensity(self, intensity: float) -> None:

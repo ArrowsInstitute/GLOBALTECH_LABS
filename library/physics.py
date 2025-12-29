@@ -11,7 +11,6 @@ File Description: Defines the interface of the Physics module of the racecar_cor
 
 import abc
 import numpy as np
-from nptyping import NDArray
 
 
 class Physics(abc.ABC):
@@ -20,7 +19,7 @@ class Physics(abc.ABC):
     """
 
     @abc.abstractmethod
-    def get_linear_acceleration(self) -> NDArray[3, np.float32]:
+    def get_linear_acceleration(self) -> np.ndarray[3, np.float32]:
         """
         Returns a 3D vector containing the car's linear acceleration.
 
@@ -45,7 +44,7 @@ class Physics(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def get_angular_velocity(self) -> NDArray[3, np.float32]:
+    def get_angular_velocity(self) -> np.ndarray[3, np.float32]:
         """
         Returns a 3D vector containing the car's angular velocity.
 
